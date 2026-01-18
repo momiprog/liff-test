@@ -3,34 +3,37 @@
 <head>
   <meta charset="utf-8">
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-  <style>
-    body {
-      font-family: sans-serif;
-      text-align: center;
-      margin-top: 40px;
-    }
-  </style>
 </head>
 <body>
-  <p>フォームへ移動中です…</p>
+  <p id="status">初期化前</p>
 
   <script>
     async function main() {
-      await liff.init({ liffId: "2008070383-CCP2iP3y" });
+      try {
+        document.getElementById("status").innerText = "LIFF初期化中…";
+        await liff.init({ liffId: "2008070383-CCP2iP3y" });
 
-      const profile = await liff.getProfile();
-      const userId = profile.userId;
-      const name = profile.displayName;
+        document.getElementById("status").innerText = "プロフィール取得中…";
+        const profile = await liff.getProfile();
 
-      redirectToForm(userId, name);
+        document.getElementById("status").innerText =
+          "取得成功：" + profile.displayName;
+
+        redirect(profile.userId, profile.displayName);
+
+      } catch (e) {
+        document.getElementById("status").innerText =
+          "エラー：" + e.message;
+        console.error(e);
+      }
     }
 
-    function redirectToForm(userId, name) {
-      const formUrl =
+    function redirect(userId, name) {
+      const url =
         "https://docs.google.com/forms/d/e/1FAIpQLSd9n6PyUfGIZ_-MhSZePfkV_nm9vys3AY_omXcmxvXpchWmyg/viewform" +
-        "?entry.1705554449=" + encodeURIComponent(userId) +
+        "?entry.1705554449=" + encodeURIComponent(userId)
 
-      location.replace(formUrl);
+      location.href = url;
     }
 
     main();
