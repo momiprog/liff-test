@@ -1,21 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-  <title>LIFF Test</title>
+  <meta charset="utf-8">
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      margin-top: 40px;
+    }
+  </style>
 </head>
 <body>
-  <h1>LIFF動作確認</h1>
-  <p id="status">初期化中...</p>
+  <p>フォームへ移動中です…</p>
 
   <script>
     async function main() {
-      await liff.init({ liffId: "2008070383-CCP2iP3y" });
-      document.getElementById("status").innerText = "LIFF 初期化OK";
+      await liff.init({ liffId: "LIFF_ID" });
+
+      const profile = await liff.getProfile();
+      const userId = profile.userId;
+      const name = profile.displayName;
+
+      redirectToForm(userId, name);
     }
+
+    function redirectToForm(userId, name) {
+      const formUrl =
+        "https://docs.google.com/forms/d/e/1FAIpQLSd9n6PyUfGIZ_-MhSZePfkV_nm9vys3AY_omXcmxvXpchWmyg/viewform" +
+        "?entry.1705554449=" + encodeURIComponent(userId) +
+
+      location.replace(formUrl);
+    }
+
     main();
   </script>
 </body>
 </html>
-
