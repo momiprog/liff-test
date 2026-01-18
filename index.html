@@ -31,7 +31,8 @@
     function redirect(userId, name) {
       const url =
         "https://docs.google.com/forms/d/e/1FAIpQLSd9n6PyUfGIZ_-MhSZePfkV_nm9vys3AY_omXcmxvXpchWmyg/viewform" +
-        "?entry.1705554449=" + encodeURIComponent(userId)
+        "?entry.1705554449=" + encodeURIComponent(userId)+
+        "&entry.938194921=" + encodeURIComponent(name);
 
       location.href = url;
     }
