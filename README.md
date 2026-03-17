@@ -1,2 +1,2 @@
 # liff-test
-LIFFのテスト
+LIFFのテスト用
